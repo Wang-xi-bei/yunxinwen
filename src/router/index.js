@@ -1,29 +1,64 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Home
+import Home from '../components/Home/home.vue';
+import NewList from '../components/Home/newlist.vue';
+import Entertainment from '../components/Home/entertainment.vue';
+import Sports from '../components/Home/sports.vue';
+import Finance from '../components/Home/finance.vue';
+import Logon from '../components/Logon/logon.vue';
+import Details from "../components/Details/details.vue";
+import My from "../components/My/my.vue";
+import Login from "../components/Login/login.vue";
+
+let routes=[{
+  path:'/home',
+  component:Home,
+  children:[{
+  path:'newlist',
+  component:NewList
+  },{
+  path:'entertainment',
+  component:Entertainment
+  },{
+  path:'sports',
+  component:Sports
+  },{
+  path:'finance',
+  component:Finance
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path:'',
+    redirect:'/home/newlist'
   }
-]
-
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+  ]},
+  {
+  name:'logon',
+  path:'/logon',
+  component:Logon
+  },
+  {
+    name:'login',
+    path:'/login',
+    component:Login
+  },
+  {
+    name:'my',
+    path:'/my',
+    component:My
+  },
+  {
+  name:'details',
+  path:'/details/:_id',
+  component:Details
+  },
+  {
+  path:'/',
+  redirect:'/home/newlist'//默认首页
+  }]
+  let router = new VueRouter({
+  routes,
+  mode:'history'
 })
-
-export default router
+export default router;
