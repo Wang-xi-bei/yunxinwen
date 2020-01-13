@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="item" v-for="(item,index) in data " :key="index" :data="item" @click=" getet(item._id)">
+        <div class="item" v-for="(item,index) in $store.state.entertainment " :key="index" :data="item" @click=" getet(item._id)">
             <div class="title">
                 <p>
                     <span>{{item.title1}}</span>
@@ -23,25 +23,27 @@
     </div>
 </template>
 <script>
+import { entertainment } from "../../store/types";
 export default {
     name:'yule',//娱乐
     data(){
         return{
-            data:[]
+            // data:[]
         }        
     },
     mounted(){
-        this.$axios({
-            url:'/api/yule',
-            params:{
-                    _limit:10
-                }
-        }).then(
-            res=>{
-                // console.log(res)
-                this.data=res.data.data
-            }
-        )
+        // this.$axios({
+        //     url:'/api/yule',
+        //     params:{
+        //             _limit:10
+        //         }
+        // }).then(
+        //     res=>{
+        //         // console.log(res)
+        //         this.data=res.data.data
+        //     }
+        // )
+        this.$store.dispatch(entertainment)
     },
     methods:{
          getet(e){

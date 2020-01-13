@@ -1,10 +1,11 @@
 <template>
   <div id="app">
+    <loading v-show="$store.state.bLoading"/>
     <Login v-show="black" @hide="none" />
     <Logon  v-show="black"/>
-    <Header @black="none" v-show="$root.hd"/>
-    <Content  v-show="$root.ct"/>
-    <Footer v-show="$root.ft"/>
+    <Header @black="none" v-show="$store.state.hd"/>
+    <Content  v-show="$store.state.ct"/>
+    <Footer v-show="$store.state.ft"/>
     <router-view/>
   </div>
 </template>
@@ -17,7 +18,8 @@ import My from './components/My/my.vue'
 import Login from './components/Login/login.vue'
 import Logon from './components/Logon/logon.vue'
 import Details from "./components/Details/details.vue"
-
+import Loading from './components/Loading/loading.vue'
+import {HD,FT,CT,BLOADING} from './store/types'
 
 
 
@@ -29,7 +31,7 @@ export default {
     }
   },
   components:{
-    Header,Footer,Content,Home,Login,Logon,Details,My
+    Header,Footer,Content,Home,Login,Logon,Details,My,Loading
   }
   ,
   methods:{
@@ -43,21 +45,30 @@ export default {
     handler (val, oldVal) { 
           // console.log(val.path)
           if(/home/.test(val.path)){
-            this.$root.hd=true;
-            this.$root.ct=true;
-            this.$root.ft=true;
+            // this.$root.hd=true;
+            // this.$root.ct=true;
+            // this.$root.ft=true;
+            this.$store.commit(HD,true)
+            this.$store.commit(FT,true)
+            this.$store.commit(CT,true)
               
           }
           if(/details|login|logon|content/.test(val.path)){
-            this.$root.hd=false;
-            this.$root.ct=false;
-            this.$root.ft=false;
+            // this.$root.hd=false;
+            // this.$root.ct=false;
+            // this.$root.ft=false;
+            this.$store.commit(HD,false)
+            this.$store.commit(FT,false)
+            this.$store.commit(CT,false)
             
           }
           if(/my/.test(val.path)){
-            this.$root.hd=false;
-            this.$root.ct=false;
-            this.$root.ft=true;
+            // this.$root.hd=false;
+            // this.$root.ct=false;
+            // this.$root.ft=true;
+            this.$store.commit(HD,false)
+            this.$store.commit(FT,true)
+            this.$store.commit(CT,false)
             
           }
         },

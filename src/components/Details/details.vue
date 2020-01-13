@@ -1,5 +1,5 @@
 <template>
-    <div class="data" v-if="dd.detail" >
+    <div class="data" v-if="$store.state.details.detail" >
         <div class="header">
             <i class="jt" @click="tz"></i>
             <h2>云新闻</h2>
@@ -7,33 +7,37 @@
         </div>
 
         <div class="data-t"   >
-            <h3>{{dd.title1}}</h3>
-            <span>{{dd.title2}}</span>
+            <h3>{{$store.state.details.title1}}</h3>
+            <span>{{$store.state.details.title2}}</span>
              <!-- <img :src="dd.img2"/> -->
-           
         </div>
-        <div class="content" v-html="dd.detail.data">
+        <div class="content" v-html="$store.state.details.detail.data">
         </div>
 
     </div>
 </template>
 <script>
+import { details } from '../../store/types'
 export default {
     name:"detail",
     data(){
         return{
-            dd:{}
+            // dd:{}
         }
     },
     mounted(){
-        this.$axios({
-            url:"/api/"+this.$route.query.dataName+"/"+this.$route.params._id
-        }).then(
-            res =>{
-                this.dd = res.data.data
-                // console.log(this.dd)
-            }
-        )
+        // this.$axios({
+        //     url:"/api/"++"/"+
+        // }).then(
+        //     res =>{
+        //         this.dd = res.data.data
+        //         // console.log(this.dd)
+        //     }
+        // )
+        this.$store.dispatch(details,{
+            dataName:this.$route.query.dataName,
+            _id:this.$route.params._id
+        })
     },
     methods:{
         tz(e){

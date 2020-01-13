@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <div class="item" v-for="(item,index) of data " :key="index" @click="getfc(item._id)" :data="item" >
+        <div class="item" v-for="(item,index) of 
+        $store.state.finance " :key="index" @click="getfc(item._id)" :data="item" >
             <div class="title">
                 <p>
                     <span>{{item.title1}}</span>
@@ -21,27 +22,29 @@
     </div>
 </template>
 <script>
+import { finance } from "../../store/types";
 export default {
     name:'finance',//财经
     data(){
     return{
-        data:[]
+        // data:[]
     }        
     },
     //请求json数据 每次渲染10个数据
      mounted(){
-         this.$axios({
-             url:"/api/caijing",
-           params:{
-               _limit:10
-           }
-         }).then(
-             res=>{
-                //  console.log(res)
-                //拿到所有数据
-                this.data=res.data.data
-             }
-         )
+        //  this.$axios({
+        //      url:"/api/caijing",
+        //    params:{
+        //        _limit:10
+        //    }
+        //  }).then(
+        //      res=>{
+        //         //  console.log(res)
+        //         //拿到所有数据
+        //         this.data=res.data.data
+        //      }
+        //  )
+         this.$store.dispatch(finance)
      },
      //点击时调用这个函数，跳转到详情页面
      methods:{

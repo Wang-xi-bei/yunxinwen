@@ -1,7 +1,7 @@
 <template>
 
     <div class="container" >
-        <div class="item" v-for="(item,index) in data" :key="index" :data="item" @click="getdetail(item._id)">
+        <div class="item" v-for="(item,index) in $store.state.newlist" :key="index" :data="item" @click="getdetail(item._id)">
             <div class="title" >
                 <p>
                     <span>{{item.title1}}</span>
@@ -24,27 +24,29 @@
     </div>
 </template>
 <script>
+import { newlist } from '../../store/types'
 //头条
 export default {
     name:'newslist',
     data(){
         return{
-            data:[]
+            // data:[]
         }
     },
      mounted(){
-        this.$axios(
-            {
-                url:"/api/home",
-                params:{
-                    _limit:20
-                }
-            }
-        ).then(
-            res=>{
-                this.data=res.data.data
-            }
-        )
+        // this.$axios(
+        //     {
+        //         url:"/api/home",
+        //         params:{
+        //             _limit:20
+        //         }
+        //     }
+        // ).then(
+        //     res=>{
+        //         this.data=res.data.data
+        //     }
+        // )
+        this.$store.dispatch(newlist)
      },
      methods:{
          getdetail(e){

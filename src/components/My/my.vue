@@ -2,6 +2,7 @@
     <div class="core">
         <div class="core-t">
             <img :src="$baseUrl + data.icon" alt=""/>
+            <!-- <h2>头像地址$baseUrl是http://localhost:3000+图片地址</h2> -->
             <span @click="zx">注销</span>
         </div>
         <div class="core-b">
@@ -41,7 +42,7 @@ export default {
     },
     methods:{
         zx(){
-            window.localStorage.removeItem('token')
+            window.localStorage.removeItem('token')//注销删除token
             this.$router.push('/home')
         }
     }
@@ -51,6 +52,7 @@ export default {
 
 </script>
 <style>
+
 .core{
     width:100%;
     height:100%;
@@ -66,6 +68,7 @@ height:3rem;
 font-size:1.3rem;
 line-height: 3rem;
 text-indent: 1rem;
+background:#fff;
 }
 .core ul li:nth-child(1){
     background:#fff;
